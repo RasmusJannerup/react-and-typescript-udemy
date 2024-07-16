@@ -1,26 +1,23 @@
 import { useState } from 'react';
 import img from '../public/goals.jpg';
-import CourseGoal from "./components/CourseGoal";
+import { CourseGoalList } from './components/CourseGoalList';
 import { Header } from "./components/Header";
+import { CourseGoalType } from './types/CourseGoal';
 
-type CourseGoal = {
-  title: string;
-  id: string;
-  description: string;
-}
+
 
 export default function App() {
-  const [courseGoals, setCourseGoals] = useState<CourseGoal[]>([]);
+  const [courseGoals, setCourseGoals] = useState<CourseGoalType[]>([]);
 
   const handleAddGoal = () => {
-    setCourseGoals(prev => [
-      ...prev,
-      {
+    setCourseGoals(prev => {
+      var newGoal = {
         title: 'New Goal',
         id: Math.random().toString(),
-        description: 'Description'
+        description: 'New Description'
       }
-    ]);
+      return [...prev, newGoal]
+    });
   }
 
 
@@ -40,29 +37,8 @@ export default function App() {
     }}>
       Add New Goal
     </button>
-    {
-      courseGoals.map(goal => (
-        <CourseGoal
-          key={goal.id}
-          title={goal.title}
-          onDelete={() => {
-            setCourseGoals(prev => prev.filter(g => g.id !== goal.id));
-          }}
-        >
-          <p>
-            {goal.description}
-          </p>
-        </CourseGoal>
-
-      ))
-    }
-    {/* <CourseGoal
-      title="Finish the course"
-      onDelete={() => console.log('Delete clicked')}
-    >
-      <p>
-        asd
-      </p>
-    </CourseGoal> */}
+    <CourseGoalList
+      goals={courseGoals}
+    ></CourseGoalList>
   </main>
 }
