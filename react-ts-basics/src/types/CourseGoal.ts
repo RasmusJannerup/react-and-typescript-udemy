@@ -1,5 +1,5 @@
 export interface CourseGoalType {
     title: string;
-    id: string;
+    id: number;
     description: string;
 }

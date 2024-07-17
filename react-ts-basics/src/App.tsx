@@ -2,6 +2,7 @@ import { useState } from 'react';
 import img from '../public/goals.jpg';
 import { CourseGoalList } from './components/CourseGoalList';
 import { Header } from "./components/Header";
+import { NewGoal } from './components/NewGoal';
 import { CourseGoalType } from './types/CourseGoal';
 
 
@@ -13,10 +14,16 @@ export default function App() {
     setCourseGoals(prev => {
       var newGoal = {
         title: 'New Goal',
-        id: Math.random().toString(),
+        id: Math.random(),
         description: 'New Description'
       }
       return [...prev, newGoal]
+    });
+  }
+
+  const handleDeleteGoal = (id: number) => {
+    setCourseGoals(prev => {
+      return prev.filter(g => g.id !== id);
     });
   }
 
@@ -32,12 +39,14 @@ export default function App() {
         Course Goals
       </h1>
     </Header>
-    <button onClick={() => {
+    <NewGoal />
+    {/* <button onClick={() => {
       handleAddGoal();
     }}>
       Add New Goal
-    </button>
+    </button> */}
     <CourseGoalList
+      onDelete={handleDeleteGoal}
       goals={courseGoals}
     ></CourseGoalList>
   </main>

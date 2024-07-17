@@ -4,10 +4,11 @@ import CourseGoal from "./CourseGoal";
 
 interface CourseGoalListProps {
     goals: CourseGoalType[];
+    onDelete: (id: number) => void;
 }
 
 
-export const CourseGoalList = ({ goals }: CourseGoalListProps) => {
+export const CourseGoalList = ({ goals, onDelete }: CourseGoalListProps) => {
     return <ul>
         {
             goals.map(goal => (
@@ -15,11 +16,9 @@ export const CourseGoalList = ({ goals }: CourseGoalListProps) => {
                     key={goal.id}
                 >
                     <CourseGoal
+                        id={goal.id}
                         title={goal.title}
-                        onDelete={() => {
-                            // setCourseGoals(prev => prev.filter(g => g.id !== goal.id));
-                            // onDelete();
-                        }}
+                        onDelete={onDelete}
                     >
                         <p>
                             {goal.description}

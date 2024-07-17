@@ -2,10 +2,11 @@ import { PropsWithChildren } from "react";
 
 interface CourseGoalProps extends PropsWithChildren {
     title: string;
-    onDelete: () => void;
+    id: number
+    onDelete: (id: number) => void;
 }
 
-export default function CourseGoal({ title, onDelete, children }: CourseGoalProps) {
+export default function CourseGoal({ title, onDelete, children, id }: CourseGoalProps) {
     return <article>
         <div>
             <h2>
@@ -16,7 +17,9 @@ export default function CourseGoal({ title, onDelete, children }: CourseGoalProp
 
         </div>
         <button
-            onClick={onDelete}
+            onClick={() => {
+                onDelete(id);
+            }}
         >
             Delete
         </button>
