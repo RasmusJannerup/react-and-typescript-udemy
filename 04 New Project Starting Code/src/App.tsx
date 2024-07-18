@@ -1,5 +1,38 @@
+import { Button } from "./components/Button";
+import { Form } from "./components/Form";
+import { Input } from "./components/Input";
+
 function App() {
-  return <h1>Let's get started!</h1>;
+
+  const handleSave = (data: unknown) => {
+    const extractedData = data as { name: string, age: number };
+    console.log(extractedData);
+  }
+
+  return <main>
+
+    <Form
+      onSave={handleSave}
+    >
+      <Input
+        label="Name"
+        id="name"
+        type="text"
+        name="name"
+      ></Input>
+      <Input
+        label="Age"
+        id="age"
+        type="number"
+        name="age"
+      ></Input>
+      <p>
+        <Button>
+          Submit
+        </Button>
+      </p>
+    </Form>
+  </main>;
 }
 
 export default App;
