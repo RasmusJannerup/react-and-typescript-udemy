@@ -4,8 +4,11 @@ type FormProps = ComponentPropsWithoutRef<'form'> & {
     onSave: (data: unknown) => void;
 }
 
+export interface FormHandle {
+    clear: () => void
+}
 
-export const Form = forwardRef(({ onSave, children, ...props }: FormProps, ref) => {
+export const Form = forwardRef<FormHandle, FormProps>(({ onSave, children, ...props }: FormProps, ref) => {
 
     const form = useRef<HTMLFormElement>(null);
 
