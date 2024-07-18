@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Button } from "./components/Button";
 import { Form } from "./components/Form";
 import { Input } from "./components/Input";
@@ -7,12 +8,18 @@ function App() {
   const handleSave = (data: unknown) => {
     const extractedData = data as { name: string, age: number };
     console.log(extractedData);
+    formRef.current?.clear();
   }
+
+  const formRef = useRef<HTMLFormElement>();
+
+
 
   return <main>
 
     <Form
       onSave={handleSave}
+      ref={formRef}
     >
       <Input
         label="Name"
