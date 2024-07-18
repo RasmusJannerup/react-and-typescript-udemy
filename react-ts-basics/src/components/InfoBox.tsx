@@ -1,16 +1,34 @@
 import { PropsWithChildren } from "react";
 
-interface InfoBoxProps extends PropsWithChildren {
+interface HintBoxProps extends PropsWithChildren {
+    mode: "hint"
 
 }
 
-export const InfoBox = ({ children }: InfoBoxProps) => {
-    return <aside>
+interface WarningBoxProps extends PropsWithChildren {
+    mode: "warning"
+    severity: "low" | "medium" | "high"
+}
+
+export type InfoBoxProps = HintBoxProps | WarningBoxProps;
+
+export const InfoBox = (props: InfoBoxProps) => {
+
+    const { children, mode } = props;
+    if (mode === "hint") {
+        return <aside className="infobox infobox-hint">
+            <p>
+                {children}
+            </p>
+        </aside>
+    }
+
+    return <aside className={`infobox infobox-warning warning--${props.severity}`}>
         <h2>
-            Info Box
+            Warning
         </h2>
         <p>
-            This is an info box
+            {children}
         </p>
     </aside>
 };
